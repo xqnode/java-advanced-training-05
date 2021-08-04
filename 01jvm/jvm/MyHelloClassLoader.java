@@ -3,22 +3,18 @@ package jvm;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 public class MyHelloClassLoader extends ClassLoader {
     public static void main(String[] args) throws Exception {
-//        Class<?> helloClass = new MyHelloClassLoader().findClass("Hello");
-//        Method hello = helloClass.getMethod("hello");
-//        hello.invoke(helloClass.newInstance());
-
-        int a = 255;
-        int b = 10;
-        byte c = (byte) (a - b);
-        System.out.println(c);
+        Class<?> helloClass = new MyHelloClassLoader().findClass("Hello");
+        Method hello = helloClass.getMethod("hello");
+        hello.invoke(helloClass.newInstance());
     }
 
     @Override
     protected Class<?> findClass(String name) {
-        byte[] bytes = readFile("Hello.xlass");
+        byte[] bytes = readFile("01jvm/Hello.xlass");
         for (int i = 0; i < bytes.length; i++) {
             bytes[i] = (byte) (255 - bytes[i]);
         }
