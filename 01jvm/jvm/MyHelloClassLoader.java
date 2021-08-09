@@ -1,8 +1,6 @@
 package jvm;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Method;
 
 public class MyHelloClassLoader extends ClassLoader {
@@ -18,6 +16,8 @@ public class MyHelloClassLoader extends ClassLoader {
         for (int i = 0; i < bytes.length; i++) {
             bytes[i] = (byte) (255 - bytes[i]);
         }
+        // 写出到文件
+        writeFile(bytes, "01jvm/Hello.class");
         return defineClass(name, bytes, 0, bytes.length);
     }
 
@@ -53,5 +53,24 @@ public class MyHelloClassLoader extends ClassLoader {
             }
         }
         return new byte[]{};
+    }
+
+    private static void writeFile(byte[] bytes, String name) {
+        OutputStream os = null;
+        try {
+            os = new FileOutputStream(name);
+            os.write(bytes, 0 ,bytes.length);
+            os.flush();
+        } catch (Exception e) {
+
+        }finally {
+            try {
+                if (os != null) {
+                    os.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
