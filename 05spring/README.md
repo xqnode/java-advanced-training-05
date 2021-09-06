@@ -15,5 +15,4 @@
 2）使用事务，PrepareStatement 方式，批处理方式，改进上述操作。
 3）配置 Hikari 连接池，改进上述操作。提交代码到 GitHub。
 
-代码位置：
-
+代码位置：https://github.com/xqnode/java-advanced-training-05/tree/master/05spring/src/main/java/com/example/demo/jdbc
